@@ -14,6 +14,9 @@ services:
       context: ./genjutsudev-docker/nginx
       dockerfile: nginx.docker
     volumes:
+      - ./genjutsudev:/var/www/genjutsudev
+      - ./genjutsudev-crm:/var/www/genjutsudev-crm
+      - ./genjutsudev-api:/var/www/genjutsudev-api
       - ./genjutsudev-docker/nginx/sites-available:/etc/nginx/conf.d
     depends_on:
       - php-fpm
@@ -49,6 +52,10 @@ services:
       - ./genjutsudev-crm:/var/www/genjutsudev-crm
       - ./genjutsudev-api:/var/www/genjutsudev-api
       - genjutsudev_composer:/root/.composer/cache
+    command: >
+      sh -c "cd /var/www/genjutsudev
+      && chown www-data:www-data -R bootstrap/cache
+      && chown www-data:www-data -R storage"
     depends_on:
       - mysql
       - redis
@@ -86,6 +93,18 @@ services:
       - '--save 300 10'
       - '--save 60 10000'
       - '--requirepass secret'
+    networks:
+      - genjutsudev
+
+  node:
+    container_name: genjutsudev_node
+    build:
+      context: ./genjutsudev-docker
+      dockerfile: node/node.docker
+    volumes:
+      - ./genjutsudev:/var/www/genjutsudev
+      - ./genjutsudev-crm:/var/www/genjutsudev-crm
+      - ./genjutsudev-api:/var/www/genjutsudev-api
     networks:
       - genjutsudev
 
