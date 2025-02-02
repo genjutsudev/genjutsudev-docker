@@ -114,9 +114,6 @@ php-cli:
 php-fpm:
 	docker compose run --rm php-fpm bash
 
-redis-cli:
-	docker compose run --rm redis redis-cli -h redis -p 6379
-
 docker-up:
 	docker compose up -d
 
