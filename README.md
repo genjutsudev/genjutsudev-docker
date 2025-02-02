@@ -14,7 +14,7 @@ services:
       context: ./genjutsudev-docker/nginx
       dockerfile: nginx.docker
     volumes:
-      - ./genjutsudev-docker/nginx/config:/etc/nginx/conf.d
+      - ./genjutsudev-docker/nginx/sites-available:/etc/nginx/conf.d
     depends_on:
       - php-fpm
     ports:
