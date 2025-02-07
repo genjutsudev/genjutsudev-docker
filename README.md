@@ -53,9 +53,11 @@ services:
       - ./genjutsudev-api:/var/www/genjutsudev-api
       - genjutsudev_composer:/root/.composer/cache
     command: >
-      sh -c "cd /var/www/genjutsudev
-      && chown www-data:www-data -R bootstrap/cache
-      && chown www-data:www-data -R storage"
+      sh -c "
+      cd /var/www/genjutsudev
+      chown www-data:www-data -R bootstrap/cache storage;
+      cd /var/www/genjutsudev-api
+      chown www-data:www-data -R bootstrap/cache storage;"
     depends_on:
       - mysql
       - redis
