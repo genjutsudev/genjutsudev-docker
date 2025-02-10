@@ -19,4 +19,5 @@ ENV COMPOSER_ALLOW_SUPERUSER=1
 WORKDIR /var/www
 
 ENTRYPOINT ["docker-php-entrypoint"]
+
 CMD ["php", "-a"]
