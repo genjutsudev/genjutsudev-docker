@@ -100,6 +100,8 @@ services:
     image: mailhog/mailhog
     ports:
       - "8085:8025"
+    networks:
+      - genjutsudev
 
 volumes:
   genjutsudev_composer:
@@ -127,7 +129,7 @@ php-fpm:
 	docker compose run --rm php-fpm bash
 
 docker-up:
-	docker compose up -d
+	docker compose up -d --build
 
 docker-stop:
 	docker compose stop
